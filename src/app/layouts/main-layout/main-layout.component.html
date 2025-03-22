@@ -1,0 +1,13 @@
+<header>
+  <h1>My App</h1>
+</header>
+
+<main>
+  <router-outlet />
+</main>
+
+<nav class="bottom-nav">
+  @for (item of menuItems; track item.path) {
+  <a [routerLink]="item.path" routerLinkActive="active">{{ item.label }}</a>
+  }
+</nav>
