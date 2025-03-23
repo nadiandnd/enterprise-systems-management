@@ -1,14 +1,45 @@
-<!-- login.component.html -->
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="username">Username</label>
-    <input id="username" formControlName="username" type="text" required />
-  </div>
+<div class="form-container">
+  <p class="header">Login</p>
 
-  <div>
-    <label for="password">Password</label>
-    <input id="password" formControlName="password" type="password" required />
-  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          id="username"
+          formControlName="username"
+          type="text"
+          required
+        />
+      </mat-form-field>
+    </div>
 
-  <button type="submit">Login</button>
-</form>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          [type]="hide() ? 'password' : 'text'"
+          id="password"
+          formControlName="password"
+          type="password"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <a>Forgot password?</a>
+
+    <button class="submit-btn" type="submit">Login</button>
+  </form>
+</div>

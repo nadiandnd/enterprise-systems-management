@@ -13,6 +13,7 @@ import { tapResponse } from '@ngrx/operators';
 
 import { AuthService } from '../core/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 type LoginState = {
   isLoading: boolean;
@@ -32,38 +33,41 @@ export const LoginStore = signalStore(
   withComputed(({ user }) => ({
     isAuthenticated: computed(() => !!user()),
   })),
-  withMethods((store, authService = inject(AuthService)) => ({
-    initUserFromCookie() {
-      const token = authService.getToken();
-      const username = authService.getUser();
-      if (token && username) {
-        patchState(store, { user: { username } });
-      }
-    },
-    login: rxMethod<{ username: string; password: string }>(
-      pipe(
-        tap(() => patchState(store, { isLoading: true, error: null })),
-        switchMap(({ username, password }) => {
-          return authService.login(username, password).pipe(
-            tapResponse({
-              next: (user) => {
-                authService.setToken(user.token);
-                authService.setUser(user.username);
-                patchState(store, { user });
-              },
-              error: (error: string) => patchState(store, { error }),
-              finalize: () => patchState(store, { isLoading: false }),
-            })
-          );
-        })
-      )
-    ),
+  withMethods(
+    (store, authService = inject(AuthService), router = inject(Router)) => ({
+      initUserFromCookie() {
+        const token = authService.getToken();
+        const username = authService.getUser();
+        if (token && username) {
+          patchState(store, { user: { username } });
+        }
+      },
+      login: rxMethod<{ username: string; password: string }>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true, error: null })),
+          switchMap(({ username, password }) => {
+            return authService.login(username, password).pipe(
+              tapResponse({
+                next: (user) => {
+                  authService.setToken(user.token);
+                  authService.setUser(user.username);
+                  patchState(store, { user });
+                  router.navigate(['/dashboard']);
+                },
+                error: (error: string) => patchState(store, { error }),
+                finalize: () => patchState(store, { isLoading: false }),
+              })
+            );
+          })
+        )
+      ),
 
-    logout() {
-      authService.removeToken();
-      patchState(store, { user: null });
-    },
-  })),
+      logout() {
+        authService.removeToken();
+        patchState(store, { user: null });
+      },
+    })
+  ),
   withHooks({
     onInit(store) {
       store.initUserFromCookie();

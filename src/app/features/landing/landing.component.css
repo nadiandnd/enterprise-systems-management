@@ -4,12 +4,7 @@
   justify-content: space-between;
   padding: 0 3%;
   border-bottom: #0e2b75 2px solid;
-}
-.logo-container a {
   color: #0e2b75;
-  text-decoration: none;
-  font-size: 32px;
-  font-weight: bold;
 }
 .right-menu {
   display: flex;
