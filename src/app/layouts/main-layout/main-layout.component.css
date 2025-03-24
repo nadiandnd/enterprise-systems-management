@@ -1,0 +1,52 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3%;
+}
+header h2 {
+  font-size: 32px;
+  cursor: pointer;
+}
+header h2 a {
+  text-decoration: none;
+  color: #001959;
+}
+header .icon-container {
+  display: flex;
+  align-items: center;
+  color: #001959;
+}
+header .user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 30px;
+}
+.user-container p {
+  max-width: 100px;
+  padding-left: 5px;
+}
+.bottom-nav {
+  background-color: #d9d9d9;
+  color: #001959;
+  display: flex;
+  justify-content: space-around;
+}
+.bottom-nav .nav {
+  padding: 20px;
+  text-align: center;
+}
+.bottom-nav .nav:hover {
+  background-color: #b6b6b6;
+  background: linear-gradient(to bottom, #e0e0e0, #b6b6b6);
+  font-weight: bold;
+}
+.bottom-nav a {
+  text-decoration: none;
+  flex-grow: 1;
+  color: #001959;
+}
+.active-link {
+  font-weight: bold;
+  background: linear-gradient(to bottom, #e0e0e0, #b6b6b6);
+}

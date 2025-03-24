@@ -35,7 +35,6 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid && this.loginForm.value) {
-      console.log(this.loginForm.value);
       const { username, password } = this.loginForm.value;
       if (username && password) {
         this.store.login({ username, password });

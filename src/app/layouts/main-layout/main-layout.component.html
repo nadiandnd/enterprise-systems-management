@@ -1,13 +1,24 @@
 <header>
-  <h1>My App</h1>
+  <h2><a routerLink="/">FluxERP</a></h2>
+  <div class="icon-container">
+    <span class="user-container">
+      <mat-icon class="search-icon" fontIcon="person"></mat-icon>
+      <p>{{ this.store.user()?.username }}</p></span
+    >
+    <button mat-icon-button aria-label="Logout" (click)="logout()">
+      <mat-icon class="search-icon" fontIcon="logout"></mat-icon>
+    </button>
+  </div>
 </header>
-
+<nav class="bottom-nav">
+  @for (item of menuItems; track item.path) {
+  <a [routerLink]="item.path" [routerLinkActive]="['active-link']">
+    <div class="nav">
+      {{ item.label }}
+    </div>
+  </a>
+  }
+</nav>
 <main>
   <router-outlet />
 </main>
-
-<nav class="bottom-nav">
-  @for (item of menuItems; track item.path) {
-  <a [routerLink]="item.path" routerLinkActive="active">{{ item.label }}</a>
-  }
-</nav>

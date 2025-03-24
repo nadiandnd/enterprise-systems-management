@@ -1,8 +1,9 @@
-::ng-deep body {
+.body {
   background-color: #c5c5c5;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 .form-container {
   background-color: #ffffff;
